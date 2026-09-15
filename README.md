@@ -169,4 +169,3 @@ src/
 
 ---
 
-Desarrollado para el challenge técnico de **DCAC** · 2024
