@@ -148,18 +148,6 @@ src/
     └── pokemonUtils.js   # Helpers y formatters
 ```
 
----
-
-## 🔮 Mejoras futuras
-
-- **TypeScript** — Tipado completo del store y los componentes
-- **Testing** — Vitest + React Testing Library + MSW para mockear la API
-- **PWA** — Service Worker para offline real sin depender de localStorage
-- **Búsqueda fuzzy** — Cargar todos los nombres (~1300) y usar Fuse.js
-- **Drag & Drop** — Reordenar el equipo con @dnd-kit/core
-- **Evoluciones** — Cadena evolutiva en la vista detalle
-- **Movimientos** — Lista de moves del pokémon
-- **I18n** — Soporte completo de idiomas con los datos de PokéAPI
 
 ---
 
