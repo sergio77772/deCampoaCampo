@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
+import useOnlineStatus from '../../hooks/useOnlineStatus';
 import { useAppSelector } from '../../app/hooks';
 import { selectTeamCount } from '../../features/team/teamSlice';
 import { selectIsOnline } from '../../features/connection/connectionSlice';
@@ -160,6 +161,11 @@ const PokeballIcon = () => (
 function Header() {
   const teamCount = useAppSelector(selectTeamCount);
   const isOnline = useAppSelector(selectIsOnline);
+  
+  // Custom selector para saber si hay queries de rtk-query en estado 'pending'
+  const isFetching = useAppSelector((state) => 
+    Object.values(state.pokemonApi.queries).some(q => q && q.status === 'pending')
+  );
 
   return (
     <Wrapper>
@@ -187,6 +193,12 @@ function Header() {
           <Dot $online={isOnline} />
           {isOnline ? 'Online' : 'Offline'}
         </ConnectionStatus>
+        {isFetching && (
+          <ConnectionStatus $online={true} style={{ color: '#a78bfa', background: 'rgba(167, 139, 250, 0.1)', borderColor: 'rgba(167, 139, 250, 0.3)' }}>
+            <Dot $online={false} style={{ animation: 'pulse 1s infinite' }} />
+            Actualizando...
+          </ConnectionStatus>
+        )}
       </Nav>
     </Wrapper>
   );

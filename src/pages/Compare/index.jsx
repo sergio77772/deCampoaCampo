@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from 'recharts';
 
-import { useGetPokemonDetailQuery } from '../../services/pokemonApi';
+import { useGetPokemonDetailQuery, useGetAllPokemonNamesQuery } from '../../services/pokemonApi';
 import TypeBadge from '../../components/TypeBadge';
 import { capitalize, formatPokemonId, statLabelsFull, getSpriteUrl } from '../../utils/pokemonUtils';
 
@@ -443,6 +443,7 @@ function ComparisonResult({ name1, name2 }) {
 // ──────────────────────────────────────────────
 function Compare() {
   const [submitted, setSubmitted] = useState(null);
+  const { data: allNames = [] } = useGetAllPokemonNamesQuery();
 
   return (
     <PageWrapper>
@@ -452,6 +453,12 @@ function Compare() {
           Seleccioná dos pokémon para comparar sus estadísticas base
         </PageSubtitle>
       </PageHeader>
+
+      <datalist id="pokemon-names">
+        {allNames.map((name) => (
+          <option key={name} value={name} />
+        ))}
+      </datalist>
 
       <FormCard>
         <Formik
@@ -481,6 +488,7 @@ function Compare() {
                         autoComplete="off"
                         autoCorrect="off"
                         spellCheck={false}
+                        list="pokemon-names"
                       />
                     )}
                   </Field>
@@ -505,6 +513,7 @@ function Compare() {
                         autoComplete="off"
                         autoCorrect="off"
                         spellCheck={false}
+                        list="pokemon-names"
                       />
                     )}
                   </Field>

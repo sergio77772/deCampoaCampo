@@ -20,6 +20,17 @@ export const pokemonApi = createApi({
     // Detalle completo de un pokémon por nombre o id
     getPokemonDetail: builder.query({
       query: (nameOrId) => `pokemon/${nameOrId}`,
+      transformResponse: (response) => ({
+        id: response.id,
+        name: response.name,
+        height: response.height,
+        weight: response.weight,
+        base_experience: response.base_experience,
+        types: response.types,
+        stats: response.stats,
+        abilities: response.abilities,
+        sprites: response.sprites,
+      }),
       providesTags: (result, error, nameOrId) => [
         { type: 'Pokemon', id: nameOrId },
       ],
@@ -62,6 +73,13 @@ export const pokemonApi = createApi({
     getAbility: builder.query({
       query: (abilityName) => `ability/${abilityName}`,
     }),
+
+    // Listado de todos los nombres (para selector searchable)
+    getAllPokemonNames: builder.query({
+      query: () => 'pokemon?limit=10000',
+      transformResponse: (response) => response.results.map((p) => p.name),
+      keepUnusedDataFor: 86400, // 24 horas
+    }),
   }),
 });
 
@@ -74,4 +92,5 @@ export const {
   useGetGenerationListQuery,
   useGetPokemonByGenerationQuery,
   useGetAbilityQuery,
+  useGetAllPokemonNamesQuery,
 } = pokemonApi;

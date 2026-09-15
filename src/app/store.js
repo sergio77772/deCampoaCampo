@@ -15,18 +15,20 @@ import { pokemonApi } from '../services/pokemonApi';
 import teamReducer from '../features/team/teamSlice';
 import connectionReducer from '../features/connection/connectionSlice';
 
-// ─── Persistencia ────────────────────────────────────────────────────────────
-// Solo persistimos el TEAM (favoritos) en localStorage.
-// El cache de RTK Query NO se persiste porque puede exceder el límite de 5MB.
-// Los datos permanecen en memoria durante la sesión gracias a keepUnusedDataFor.
 const teamPersistConfig = {
   key: 'team',
   storage,
   version: 1,
 };
 
+const apiPersistConfig = {
+  key: 'pokemonApi',
+  storage,
+  whitelist: ['queries'], // Solo persistimos las queries
+};
+
 const rootReducer = combineReducers({
-  [pokemonApi.reducerPath]: pokemonApi.reducer, // sin persistReducer
+  [pokemonApi.reducerPath]: persistReducer(apiPersistConfig, pokemonApi.reducer),
   team: persistReducer(teamPersistConfig, teamReducer),
   connection: connectionReducer, // NO persiste — siempre refleja estado real
 });
