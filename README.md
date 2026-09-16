@@ -155,15 +155,3 @@ src/
 
 [Este proyecto está configurado para un fácil despliegue en [Vercel](https://vercel.com).](https://pokedex-six-silk.vercel.app/)
 
-### Desplegar en Vercel
-
-1. Hacé un fork o cloná este repositorio en tu cuenta de GitHub.
-2. Ingresá a tu cuenta de Vercel y creá un nuevo proyecto.
-3. Importá el repositorio desde GitHub.
-4. Vercel detectará automáticamente que es un proyecto **Vite**. La configuración por defecto (`npm run build` y directorio de salida `dist`) funcionará perfectamente.
-5. Haz clic en **Deploy**.
-
-*(El archivo `vercel.json` incluido en el proyecto se asegura de que las rutas de React Router funcionen correctamente recargando la página).*
-
----
-
